@@ -58,28 +58,31 @@ class TimelineItemCenter extends TimelineItem {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-        builder: (context, constraints) => Container(
-            decoration: TimelineBoxDecoration(
-                isFirst: model.isFirst,
-                isLast: model.isLast,
-                iconSize: iconSize,
-                iconBackground: model.iconBackground,
-                properties: properties,
-                timelinePosition: TimelinePosition.Center),
-            child: Stack(
-              alignment: position,
-              children: <Widget>[
-                Container(
-                    constraints: BoxConstraints(
-                        maxWidth: constraints.maxWidth / 2 -
-                            iconSize / 2.0 -
-                            TimelineBoxDecoration.LINE_GAP * 2.0,
-                        minHeight:
-                            iconSize + TimelineBoxDecoration.LINE_GAP * 2),
-                    child: model.child),
-                Center(child: icon),
-              ],
-            )));
+      builder: (context, constraints) => Container(
+        decoration: TimelineBoxDecoration(
+            isFirst: model.isFirst,
+            isLast: model.isLast,
+            iconSize: iconSize,
+            iconBackground: model.leading == null
+                ? model.iconBackground
+                : Colors.transparent,
+            properties: properties,
+            timelinePosition: TimelinePosition.Center),
+        child: Stack(
+          alignment: position,
+          children: <Widget>[
+            Container(
+                constraints: BoxConstraints(
+                    maxWidth: constraints.maxWidth / 2 -
+                        iconSize / 2.0 -
+                        TimelineBoxDecoration.LINE_GAP * 2.0,
+                    minHeight: iconSize + TimelineBoxDecoration.LINE_GAP * 2),
+                child: model.child),
+            Center(child: model.leading ?? icon),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -103,12 +106,14 @@ class TimelineItemLeft extends TimelineItem {
                   iconSize: model.icon != null
                       ? properties.iconSize
                       : TimelineBoxDecoration.DEFAULT_DOT_SIZE,
-                  iconBackground: model.iconBackground,
+                  iconBackground: model.leading == null
+                      ? model.iconBackground
+                      : Colors.transparent,
                   properties: properties,
                   timelinePosition: TimelinePosition.Left),
               width: properties.iconSize * 2,
               alignment: Alignment.center,
-              child: icon),
+              child: model.leading ?? icon),
           Container(
               padding:
                   const EdgeInsets.only(left: TimelineBoxDecoration.LINE_GAP),
@@ -143,18 +148,22 @@ class TimelineItemRight extends TimelineItem {
                   maxWidth: constraints.maxWidth - margin * 2.0),
               child: model.child),
           Container(
-              decoration: TimelineBoxDecoration(
-                  isFirst: model.isFirst,
-                  isLast: model.isLast,
-                  iconSize: model.icon != null
-                      ? properties.iconSize
-                      : TimelineBoxDecoration.DEFAULT_DOT_SIZE,
-                  iconBackground: model.iconBackground,
-                  properties: properties,
-                  timelinePosition: TimelinePosition.Right),
-              width: properties.iconSize * 2,
-              alignment: Alignment.center,
-              child: icon),
+            decoration: TimelineBoxDecoration(
+              isFirst: model.isFirst,
+              isLast: model.isLast,
+              iconSize: model.icon != null
+                  ? properties.iconSize
+                  : TimelineBoxDecoration.DEFAULT_DOT_SIZE,
+              iconBackground: model.leading == null
+                  ? model.iconBackground
+                  : Colors.transparent,
+              properties: properties,
+              timelinePosition: TimelinePosition.Right,
+            ),
+            width: properties.iconSize * 2,
+            alignment: Alignment.center,
+            child: model.leading ?? icon,
+          ),
         ],
       );
     });

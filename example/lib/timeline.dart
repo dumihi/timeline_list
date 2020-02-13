@@ -66,41 +66,41 @@ class _TimelinePageState extends State<TimelinePage> {
     final doodle = doodles[i];
     final textTheme = Theme.of(context).textTheme;
     return TimelineModel(
-        Card(
-          margin: EdgeInsets.symmetric(vertical: 16.0),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          clipBehavior: Clip.antiAlias,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Image.network(doodle.doodle),
-                const SizedBox(
-                  height: 8.0,
-                ),
-                Text(doodle.time, style: textTheme.caption),
-                const SizedBox(
-                  height: 8.0,
-                ),
-                Text(
-                  doodle.name,
-                  style: textTheme.title,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 8.0,
-                ),
-              ],
-            ),
+      Card(
+        margin: EdgeInsets.symmetric(vertical: 16.0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        clipBehavior: Clip.antiAlias,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Image.network(doodle.doodle),
+              const SizedBox(
+                height: 8.0,
+              ),
+              Text(doodle.time, style: textTheme.caption),
+              const SizedBox(
+                height: 8.0,
+              ),
+              Text(
+                doodle.name,
+                style: textTheme.title,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+            ],
           ),
         ),
-        position:
-            i % 2 == 0 ? TimelineItemPosition.right : TimelineItemPosition.left,
-        isFirst: i == 0,
-        isLast: i == doodles.length,
-        iconBackground: doodle.iconBackground,
-        icon: doodle.icon);
+      ),
+      position:
+          i % 2 == 0 ? TimelineItemPosition.right : TimelineItemPosition.left,
+      isFirst: i == 0,
+      isLast: i == doodles.length,
+      iconBackground: doodle.iconBackground,
+      leading: Text("abc"),
+    );
   }
 }
